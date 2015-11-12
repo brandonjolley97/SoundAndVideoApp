@@ -39,61 +39,50 @@ public class SoundActivity extends Activity implements Runnable
 
     }
 
-    private void setupListeners()
-    {
+    private void setupListeners() {
 
-        startButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void OnClick(View currentView)
-            {
+        startButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View currentView) {
                 soundPlayer.start();
             }
         });
-        pauseButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void OnClick(View currentView)
-            {
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View currentView) {
                 soundPlayer.pause();
             }
         });
 
-        stopButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void OnClick(View currentView)
-            {
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View currentView) {
                 soundPlayer.stop();
                 soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.pomdeter);
             }
         });
 
-        videoButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void OnClick(View currentView)
-            {
+        videoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View currentView) {
                 Intent myIntent = new Intent(currentView.getContext(), VideoActivity.class);
                 startActivityForResult(myIntent, 0);
             }
 
         });
 
-        soundSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {}
+        soundSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
 
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                if(fromUser)
-                {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
                     soundPlayer.seekTo(progress);
                 }
             }
 
 
         });
+    }
 
         public void run()
         {
@@ -121,11 +110,6 @@ public class SoundActivity extends Activity implements Runnable
             }
 
         }
-
-            
-
-
-    });
 
 
 
