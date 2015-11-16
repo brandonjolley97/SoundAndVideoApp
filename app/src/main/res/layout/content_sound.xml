@@ -50,12 +50,14 @@
             android:layout_alignParentEnd="true" />
 
         <SeekBar
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/soundSeekBar"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:clickable="false"
+            android:contextClickable="false" />
 
         <Button
             android:layout_width="wrap_content"
