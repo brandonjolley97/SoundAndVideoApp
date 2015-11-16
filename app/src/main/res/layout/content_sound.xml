@@ -67,5 +67,25 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:height="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Mad World"
+            android:id="@+id/songTitleView"
+            android:textSize="25dp"
+            android:layout_above="@+id/soundSeekBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="88dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Song"
+            android:id="@+id/songChangeButton"
+            android:layout_above="@+id/pauseButton"
+            android:layout_alignRight="@+id/songTitleView"
+            android:layout_alignEnd="@+id/songTitleView" />
     </RelativeLayout>
 </RelativeLayout>

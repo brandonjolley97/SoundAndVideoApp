@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 
 
+
 public class SoundActivity extends Activity implements Runnable
 {
 
@@ -15,9 +16,12 @@ public class SoundActivity extends Activity implements Runnable
     private Button pauseButton;
     private Button stopButton;
     private Button videoButton;
-    private MediaPlayer soundPlayer;
+    private MediaPlayer madPlayer;
     private SeekBar soundSeekBar;
     private Thread soundThread;
+    private TextView songTitleView;
+    private Button songChangeButton;
+    int songNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,12 +29,15 @@ public class SoundActivity extends Activity implements Runnable
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_sound);
 
+        songTitleView = (TextView) findViewById(R.id.songTitleView);
         startButton = (Button) findViewById(R.id.playButton);
         pauseButton = (Button) findViewById(R.id.pauseButton);
         stopButton = (Button) findViewById(R.id.stopButton);
         videoButton = (Button) findViewById(R.id.videoButton);
         soundSeekBar = (SeekBar) findViewById(R.id.soundSeekBar);
-        soundPlayer = MediaPlayer.create(this.getBaseContext(),R.raw.madworld);
+        madPlayer = MediaPlayer.create(this.getBaseContext(),R.raw.madworld);
+        songChangeButton = (Button) findViewById(R.id.songChangeButton);
+
 
         setupListeners();
 
@@ -42,21 +49,47 @@ public class SoundActivity extends Activity implements Runnable
     private void setupListeners()
     {
 
+        songChangeButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View currentView)
+            {
+                if(songNumber == 1)
+                {
+                    madPlayer = MediaPlayer.create(getBaseContext(),R.raw.rising);
+                    songTitleView.setText("House Of The Rising Sun");
+                }
+                else if(songNumber == 2)
+                {
+                    madPlayer =MediaPlayer.create(getBaseContext(),R.raw.misery);
+                    songTitleView.setText("I Miss The Misery");
+                }
+                else if(songNumber == 3)
+                {
+                    madPlayer = MediaPlayer.create(getBaseContext(),R.raw.madworld);
+                    songTitleView.setText("Mad World");
+                    songNumber = 0;
+                }
+                songNumber++;
+            }
+
+
+        });
+
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View currentView) {
-                soundPlayer.start();
+                madPlayer.start();
             }
         });
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View currentView) {
-                soundPlayer.pause();
+                madPlayer.pause();
             }
         });
 
         stopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View currentView) {
-                soundPlayer.stop();
-                soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.madworld);
+                madPlayer.stop();
+                madPlayer = MediaPlayer.create(getBaseContext(), R.raw.madworld);
             }
         });
 
@@ -79,7 +112,7 @@ public class SoundActivity extends Activity implements Runnable
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    soundPlayer.seekTo(progress);
+                    madPlayer.seekTo(progress);
                 }
             }
 
@@ -90,15 +123,15 @@ public class SoundActivity extends Activity implements Runnable
         public void run()
         {
             int currentPosition = 0;
-            int soundTotal = soundPlayer.getDuration();
+            int soundTotal = madPlayer.getDuration();
             soundSeekBar.setMax(soundTotal);
 
-            while (soundPlayer !=null && currentPosition < soundTotal)
+            while (madPlayer !=null && currentPosition < soundTotal)
             {
                 try
                 {
                     Thread.sleep(300);
-                    currentPosition = soundPlayer.getCurrentPosition();
+                    currentPosition = madPlayer.getCurrentPosition();
                 }
                 catch(InterruptedException soundException)
                 {
